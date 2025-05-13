@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Charlie Wallet</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #f9f9f9;
+      color: #333;
+    }
+    .header {
+      background: #1e1e2f;
+      color: #fff;
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .nav a, .btn-signup {
+      margin-left: 1rem;
+      color: white;
+      text-decoration: none;
+    }
+    .btn-signup {
+      background: #ff4757;
+      border: none;
+      padding: 0.5rem 1rem;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    .hero {
+      background: #2f3542;
+      color: white;
+      padding: 4rem 2rem;
+      text-align: center;
+    }
+    .cta {
+      background: #ff6b81;
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-size: 1rem;
+      cursor: pointer;
+    }
+    .games {
+      padding: 2rem;
+      text-align: center;
+    }
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+    .game-card {
+      background: white;
+      padding: 1rem;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    }
+    .game-card img {
+      width: 100%;
+      height: 100px;
+      object-fit: cover;
+      border-radius: 5px;
+      margin-bottom: 0.5rem;
+    }
+    .footer {
+      background: #1e1e2f;
+      color: #ccc;
+      text-align: center;
+      padding: 1rem;
+    }
+    .welcome {
+      color: white;
+      font-weight: bold;
+      margin-left: 1rem;
+    }
+    .item-option {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem;
+      background: #fff;
+      border-radius: 5px;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+    }
+    .item-option:hover {
+      transform: scale(1.05);
+      box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+    }
+    .about {
+      padding: 80px 0;
+      text-align: center;
+      background-color: #f5f5f5;
+    }
+    .about h2 {
+      margin-bottom: 30px;
+      color: #333;
+    }
+    .about-content {
+      max-width: 600px;
+      margin: 0 auto;
+    }
+    .about-content p {
+      font-size: 1.2em;
+      margin-bottom: 20px;
+      color: #666;
+    }
+    .about-content ul {
+      list-style: none;
+      padding: 0;
+    }
+    .about-content li {
+      font-size: 1.1em;
+      margin: 10px 0;
+      color: #444;
+    }
+    .balance {
+      color: #2ecc71;
+      font-weight: bold;
+      margin-left: 1rem;
+      padding: 0.5rem 1rem;
+      background: rgba(255, 255, 255, 0.1);
+      border-radius: 5px;
+    }
+  </style>
+</head>
+<body>
+  <header class="header">
+    <div class="logo">Charlie Wallet</div>
+    <nav>
+      <a href="#about">About Us</a>
+      <span id="welcomeMsg" class="welcome"></span>
+      <span id="balanceDisplay" class="balance" style="display: none;">Balance: ₱<span id="balanceAmount">0</span></span>
+      <button id="authBtn" class="btn-signup" onclick="openModal()">Sign In / Log In</button>
+    </nav>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Charlie Wallet</h1>
+        <p>Your Trusted Digital Payment Solution</p>
+      </div>
+    </section>
+
+    <section id="games" class="games">
+      <h2>Supported Games</h2>
+      <div class="game-grid">
+        <!-- Dota 2 -->
+        <div class="game-card" data-game="dota2">
+          <img src="https://shared.fastly.steamstatic.com/store_item_assets/steam/apps/570/capsule_616x353.jpg?t=1745368590" alt="Dota 2">
+          <div class="item-option" onclick="purchaseDragonClawHook()">
+            <img src="https://steamcommunity-a.akamaihd.net/economy/image/i0CoZ81Ui0m-9KwlBY1L_18myuGuq1wfhWSaZgMttydbPaERSR0Wqmu7LAocGIyi3kajH-bBx82kemuC4VFwy5T_71XiVRL_oZ7v8ilk7f2qceo6IaTHCDfBk71w4-A8THmywUshtWjQzIuhdH_Gaw50ApJzTLFb5xm9jJS5YNUue4m9" alt="Dragon Claw Hook" style="width:100%; display:block;">
+            <p style="margin: 0.5rem; font-weight: bold;">Dragon Claw Hook - ₱599</p>
+          </div>
+        </div>
+
+        <!-- Star Rail -->
+        <div class="game-card" data-game="starrail">
+          <img src="https://cdn1.epicgames.com/offer/a2dcbb9e34204bda9da8415f97b3f4ea/2560x1440_EN_2560x1440-1295c4399099873d0d329e1c39d12ed5" alt="Star Rail">
+          <div class="item-option" onclick="purchaseExpressPass()">
+            <img src="https://kaleoz-media.seagmcdn.com/kaleoz-store/202309/oss-5b85c98fbf27196e2f6e70656551a415.jpg!thumb" alt="Express Supply Pass" style="width:100%; display:block;">
+            <p style="margin: 0.5rem; font-weight: bold;">Express Supply Pass - ₱299</p>
+          </div>
+        </div>
+
+        <!-- Valorant -->
+        <div class="game-card" data-game="valorant">
+          <img src="https://cdn1.epicgames.com/offer/cbd5b3d310a54b12bf3fe8c41994174f/EGS_VALORANT_RiotGames_S1_2560x1440-543b60e5e4a0af08f8001e8faf7e1bc3?resize=1&w=480&h=270&quality=medium" alt="Valorant">
+          <div class="item-option" onclick="purchaseValorantPoints(80)">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center;">
+                <span>80</span>
+                <img src="https://static.wikia.nocookie.net/valorant/images/9/9d/Valorant_Points.png/revision/latest?cb=20200408014952" alt="Valorant Points Logo" style="width: 20px; height: auto; margin-left: 5px;">
+              </div>
+              <span>₱49</span>
+            </div>
+          </div>
+          <div class="item-option" onclick="purchaseValorantPoints(400)">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center;">
+                <span>400</span>
+                <img src="https://static.wikia.nocookie.net/valorant/images/9/9d/Valorant_Points.png/revision/latest?cb=20200408014952" alt="Valorant Points Logo" style="width: 20px; height: auto; margin-left: 5px;">
+              </div>
+              <span>₱249</span>
+            </div>
+          </div>
+          <div class="item-option" onclick="purchaseValorantPoints(800)">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center;">
+                <span>800</span>
+                <img src="https://static.wikia.nocookie.net/valorant/images/9/9d/Valorant_Points.png/revision/latest?cb=20200408014952" alt="Valorant Points Logo" style="width: 20px; height: auto; margin-left: 5px;">
+              </div>
+              <span>₱499</span>
+            </div>
+          </div>
+        </div>
+
+        <!-- Roblox Card -->
+        <div class="game-card" data-game="roblox">
+          <img src="https://play-lh.googleusercontent.com/7cIIPlWm4m7AGqVpEsIfyL-HW4cQla4ucXnfalMft1TMIYQIlf2vqgmthlZgbNAQoaQ" alt="Roblox">
+          <div class="item-option" onclick="purchaseRobux(80)">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center;">
+                <span>80</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Robux_2019_Logo_gold.svg/1883px-Robux_2019_Logo_gold.svg.png" alt="Robux Logo" style="width: 20px; height: auto; margin-left: 5px;">
+              </div>
+              <span>₱49</span>
+            </div>
+          </div>
+          <div class="item-option" onclick="purchaseRobux(400)">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center;">
+                <span>400</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Robux_2019_Logo_gold.svg/1883px-Robux_2019_Logo_gold.svg.png" alt="Robux Logo" style="width: 20px; height: auto; margin-left: 5px;">
+              </div>
+              <span>₱249</span>
+            </div>
+          </div>
+          <div class="item-option" onclick="purchaseRobux(800)">
+            <div style="display: flex; align-items: center; justify-content: space-between;">
+              <div style="display: flex; align-items: center;">
+                <span>800</span>
+                <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c7/Robux_2019_Logo_gold.svg/1883px-Robux_2019_Logo_gold.svg.png" alt="Robux Logo" style="width: 20px; height: auto; margin-left: 5px;">
+              </div>
+              <span>₱499</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="about" class="about">
+      <h2>About Us</h2>
+      <div class="about-content">
+        <p>Created by:</p>
+        <ul>
+          <li>Charles Milan - BSIT 1E</li>
+          <li>Takumi Asai - BSIT 1E</li>
+        </ul>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>&copy; 2025 Charlie Wallet. All rights reserved.</p>
+  </footer>
+
+  <!-- Login Modal -->
+  <div id="loginModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.6); z-index:999; justify-content:center; align-items:center;">
+    <div style="background:white; padding:2rem; border-radius:10px; width:300px; position:relative;">
+      <h2 style="margin-top:0;">Login</h2>
+      <input type="text" id="username" placeholder="Username" style="width:100%; padding:0.5rem; margin-bottom:1rem;" />
+      <input type="password" id="password" placeholder="Password" style="width:100%; padding:0.5rem; margin-bottom:1rem;" />
+      <button onclick="login()" style="width:100%; padding:0.5rem; background:#1e1e2f; color:white; border:none; border-radius:5px;">Log In</button>
+      <button onclick="closeModal()" style="position:absolute; top:0.5rem; right:0.5rem; background:none; border:none; font-size:1.2rem; cursor:pointer;">✖</button>
+    </div>
+  </div>
+
+  <script>
+    let userBalance = 0;  // Global variable to track user balance
+
+    function openModal() {
+      document.getElementById('loginModal').style.display = 'flex';
+    }
+
+    function closeModal() {
+      document.getElementById('loginModal').style.display = 'none';
+    }
+
+    function updateBalanceDisplay() {
+      document.getElementById('balanceAmount').textContent = userBalance;
+    }
+
+    function login() {
+      const username = document.getElementById('username').value.trim();
+      const password = document.getElementById('password').value;
+
+      // Simulated login check
+      if (username === 'admin' && password === '1234') {
+        document.getElementById('welcomeMsg').innerText = `Welcome, ${username}!`;
+        document.getElementById('authBtn').style.display = 'none';
+        document.getElementById('balanceDisplay').style.display = 'inline';
+        userBalance = 1000;  // Set initial balance
+        updateBalanceDisplay();
+        closeModal();
+      } else {
+        alert('Incorrect username or password.');
+      }
+    }
+
+    function purchaseRobux(amount) {
+      const prices = {
+        80: 49,
+        400: 249,
+        800: 499
+      };
+
+      const price = prices[amount];
+
+      if (userBalance >= price) {
+        userBalance -= price;  // Deduct the price from balance
+        updateBalanceDisplay();  // Update the display
+        alert(`Successfully purchased ${amount} Robux for ₱${price}.`);
+      } else {
+        alert('Insufficient balance.');
+      }
+    }
+
+    function purchaseExpressPass() {
+      const price = 299;
+
+      if (userBalance >= price) {
+        userBalance -= price;  // Deduct the price from balance
+        updateBalanceDisplay();  // Update the display
+        alert(`Successfully purchased Express Supply Pass for ₱${price}.`);
+      } else {
+        alert('Insufficient balance.');
+      }
+    }
+
+    function purchaseDragonClawHook() {
+      const price = 599;
+
+      if (userBalance >= price) {
+        userBalance -= price;  // Deduct the price from balance
+        updateBalanceDisplay();  // Update the display
+        alert(`Successfully purchased Dragon Claw Hook for ₱${price}.`);
+      } else {
+        alert('Insufficient balance.');
+      }
+    }
+
+    function purchaseValorantPoints(amount) {
+      const prices = {
+        80: 49,
+        400: 249,
+        800: 499
+      };
+
+      const price = prices[amount];
+
+      if (userBalance >= price) {
+        userBalance -= price;
+        updateBalanceDisplay();
+        alert(`Successfully purchased ${amount} Valorant Points for ₱${price}.`);
+      } else {
+        alert('Insufficient balance.');
+      }
+    }
+  </script>
+</body>
+</html>
